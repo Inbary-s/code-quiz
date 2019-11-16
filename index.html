@@ -13,22 +13,46 @@
 </head>
 
 <body>
-    <div class="row">
-    <h1>Code Quiz</h1>
-    </div>
-
-    <div class="row">
-    <h2>Click button to start the clock</h2>
-    </div>
-
-    <div class="row instructions">
-    <p>For every correct answer, you will get points!</p> 
-    <p>Every wrong answer, will cost you points and time!</p>
-    </div>
     
-    <button>Start Quiz</button>
+    <div class="row justify-content-center">
+        <div id="timer">Your time: </div>
+        <button id="highscore">View Highscore</button>
+        
+    </div>
+            
+    <div id="quiz-start">
+        <div class="row justify-content-center">
+            <h1>Code Quiz</h1>
+        </div>
+
+        <div class="row justify-content-center">
+            <h2>Click button to start the clock</h2>
+        </div>
+        
+        <div class="row instructions justify-content-center">
+            <p>For every correct answer, you will get points!</p> 
+            <p>Every wrong answer, will cost you points and time!</p>
+        </div>
+        
+        <button id="start">Start Quiz</button>
+        
+    </div>
+    <div class="row justify-content-center">
+        <div class="row">
+            <div id="quiz" class="row content-justify-center"></div>
+        </div>
+
+        <div class="row">
+            <div id="chBtn"></div>
+        </div>
+    </div>
+        
+        <div class="row">
+            <div id="answer"></div>
+        </div>
 
 
-    <script src="assets/questions.js assets/function.js" ></script>
+    <script src="assets/questions.js" ></script>
+    <script src="assets/function.js" ></script>
 </body>
 </html>

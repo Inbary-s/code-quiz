@@ -1,0 +1,57 @@
+body {
+    margin: 10%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(83, 51, 153);
+}
+
+#timer {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+}
+#highscore {
+    margin: 0;
+    position: absolute;
+    top: 10%;
+    left: 10%;
+}
+#start {
+    margin: 0;
+    position: absolute;
+    top: 85%;
+    left: 45%;
+}
+#quiz-start {
+    margin-top: 10%;
+}
+ 
+#quiz {
+    position: absolute;
+    align-content: center;
+    top: 40%;
+}
+
+#quiz-buttons {
+    position: relative;
+    align-content: center;
+}
+
+#answer {
+    position: relative;
+    align-content: center;
+
+} 
+button {
+    color: rgb(83, 51, 153);
+    background-color: rgba(105, 143, 255, 0.568);
+    border: rgba(65, 105, 225, 0.808) solid 1px;
+    border-radius: 10px;
+    margin: 5%;
+    align-content: center;
+}
+
+button:hover {
+    background-color: royalblue;
+    color: rgb(188, 178, 209);
+    border: rgb(83, 51, 153) solid 1px;
+}
