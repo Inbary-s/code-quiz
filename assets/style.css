@@ -2,6 +2,7 @@ body {
     margin: 10%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: rgb(83, 51, 153);
+    text-align: center;
 }
 
 #timer {
@@ -17,8 +18,8 @@ body {
 }
 #start {
     margin: 0;
-    position: absolute;
-    top: 85%;
+    /* position: absolute;
+    top: 85%; */
     left: 45%;
 }
 #quiz-start {
@@ -26,18 +27,13 @@ body {
 }
  
 #quiz {
-    position: absolute;
+    /* position: absolute; */
     align-content: center;
     top: 40%;
 }
 
-#quiz-buttons {
-    position: relative;
-    align-content: center;
-}
-
 #answer {
-    position: relative;
+    /* position: relative; */
     align-content: center;
 
 } 
@@ -54,4 +50,10 @@ button:hover {
     background-color: royalblue;
     color: rgb(188, 178, 209);
     border: rgb(83, 51, 153) solid 1px;
+}
+
+h1 {
+    margin-bottom: 2%;
+    font-weight: bold;
+    text-shadow: 4px 2px 0 rgb(17, 9, 36);
 }

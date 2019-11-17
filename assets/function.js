@@ -1,8 +1,16 @@
-var totalTime = 100;
+//--------------
+// GLOBAL VARS
+//--------------
 var start = document.querySelector("#start");
 var count = 0;
 var totalPoints = 0;
 var highscore = 0;
+var quiz = document.getElementById("quiz");
+console.log(quiz);
+var choose = document.getElementById("chBtn");
+console.log(choose);
+var answerLine = document.getElementById("answer");
+console.log(answerLine);
 
 // /questions - remove
 var questions = [
@@ -17,39 +25,36 @@ var questions = [
     answer: "parentheses"
   }
 ];
+//
 
-endGame = () => {
-  if (totalPoints > highscore) {
-    //set totalPoints to highscore, append to DOM
-    highscore = totalPoints;
-  }
-  alert("GAME OVER, YOUR HIGHSCORE IS " + highscore);
-};
+//--------------
+// FUNCTIONALITIES 
+//--------------
 
-answeredRight = () => {
-  alert("YOU GOT IT RIGHT!");
-  totalPoints += 10;
-  count++;
-  if (count === questions.length) {
-    endGame();
-  } else {
-    generateQuestions();
-  }
-};
+start.addEventListener("click", function() {
+  var totalTime = 100;
+  console.log(totalTime);
+  generateQuestions();
 
-answeredWrong = () => {
-  alert("YOU GOT IT WRONG!");
-  totalPoints -= 5;
-  count++;
-  totalTime -= 10;
-  if (count === questions.length) {
-    endGame();
-  } else {
-    generateQuestions();
-  }
-};
+  var interval = setInterval(function() {
+    totalTime--;
+    document.getElementById("timer").innerHTML = "Your time: " + totalTime;
+    console.log("tick .. " + totalTime);
+    if (totalTime === 0) {
+      clearInterval(interval);
+      console.log("Time's out");
+      // alert("Time's out!");
+      return endGame();
+    }
+  }, 1000);
 
-///end questions
+  //remove quiz-start content
+  var quizStart = document.getElementById("quiz-start");
+  console.log(quizStart);
+  quizStart.textContent = "";
+
+});
+
 generateQuestions = () => {
   document.getElementById("quiz").innerHTML = questions[count].title;
   document.getElementById("chBtn").innerHTML = "";
@@ -74,90 +79,62 @@ generateQuestions = () => {
   });
 };
 
-start.addEventListener("click", function() {
-  console.log(totalTime);
-  generateQuestions();
+answeredRight = () => {
+  alert("YOU GOT IT RIGHT!");
+  totalPoints += 10;
+  console.log(totalPoints);
+  count++;
+  if (count === questions.length) {
+    endGame();
+  } else {
+    generateQuestions();
+  }
+};
 
-  var interval = setInterval(function() {
-    totalTime--;
-    document.getElementById("timer").innerHTML = "Your time: " + totalTime;
-    console.log("tick .. " + totalTime);
-    if (totalTime === 0) {
-      clearInterval(interval);
-      console.log("Time's out");
-      alert("Time's out!");
-      endGame();
-    }
-  }, 1000);
+answeredWrong = () => {
+  alert("YOU GOT IT WRONG!");
+  totalPoints -= 5;
+  count++;
+  var totalTime = totalTime;
+  totalTime -= 10;
+  if (count === questions.length) {
+    endGame();
+  } else {
+    generateQuestions();
+  }
+};
 
-  //remove quiz-start content
-  var quizStart = document.getElementById("quiz-start");
-  console.log(quizStart);
-  quizStart.textContent = "";
-  //
-  // present question
-  var quiz = document.getElementById("quiz");
-  console.log(quiz);
-  var choose = document.getElementById("chBtn");
-  console.log(choose);
-  var answerLine = document.getElementById("answer");
-  console.log(answerLine);
+endGame = () => {
+  var body = document.body;
+  if (totalPoints > highscore) {
+    //set totalPoints to highscore, append to DOM + local storage
+    highscore = totalPoints;
+  }
+  alert("GAME OVER, YOUR HIGHSCORE IS " + highscore);
 
-  // - present button choises
-  //   function printBtn() {
-  //     for (var i = 0; i < choicesButtons.length; i++) {
-  //       var btn = document.createElement("button");
-  //       var text = document.createTextNode(choicesButtons[i]);
-  //       btn.appendChild(text);
-  //       choose.appendChild(btn); //clear from loop look at the bookmark activity
-  //     }
-  //   }
+  function clear(){
+    document.getElementById("timer").innerHTML = "";
+  }
+  var interval = setInterval(function(){
+    clearInterval(interval);
+  })
+  body.textContent = "";
+  // print "ALL DONE!"
+  var allDone = '<h1> ALL DONE!</h1>';
+  var title = document.createElement("div");
+  document.body.appendChild(title);
+  title.innerHTML = allDone;
+  // print (<p> highscore)
+  var finalScore = 'Your Final Score Is ' + highscore;
+  var anounceScore = document.createElement("div");
+  document.body.appendChild(anounceScore);
+  // anounceScore.setAttribute("style", center);
+  anounceScore.textContent = finalScore;
+  // Input initials
+  // log to localStorage
+  // submit
+  // Show highscore
+  // Back button > start quiz (index.html)
+  // Clear highscore > clear from screen
+};
 
-  //             - present questions (for loop through questions.js array)
-  //   for (var i = 0; i < questions.length; i++) {
-  //     var question = questions[i].title;
-  //     var choicesButtons = questions[i].choices;
-  //     var answer = questions[i].answer;
-  //     console.log(question);
-  //     console.log(choicesButtons);
-  //     console.log(answer);
-
-  //     quiz.innerHTML = question;
-  //     printBtn();
-
-  // choicesButtons.addEventListener("click", function() {
-  //   var choicesButtons = [];
-  //   var userChoise = choose.querySelectorAll(".choisesButtons");
-  //   var userAnswer = "";
-  //   var ansCorrect = 0;
-  //   if (userChoise === answer) {
-  //     document.getElementById("answer").textContent = "Correct!";
-  //     // answerLine.innerHTML = answer;
-  //   } else {
-  //     return (document.getElementById("answer").textContent =
-  //       "Wrong! It is... " + answer);
-  //   }
-  //   console.log(document.getElementById("answer"));
-  // });
-
-  //     quesrions[i].appendChild("style", "text-decoration:underline; color:red;");
-  //     show question + [answers] as buttons
-  //         if answer===true{
-  //             textContent("Correct!") to div;
-  //             highscore= highscore+10;
-  //         }
-  //         else {
-  //             textContent ("Wrong!") to div;
-  //             highscore= highscore-5;
-  //             timer= timer-10sec;
-  //         }
-  // }
-
-  // });
-
-  //             - All Done - present highscore = highscore+timer
-  //                 -input "Enter initials" -> localStorage
-  //                 show Highscore page with a list of local storage initial+highscore
-  //                 button: back
-  //                 button: clear highscore
-});
