@@ -79,3 +79,8 @@ table{
     margin-top: 2%;
 }
 
+@media (max-width:500px){
+    #quiz-start{
+        margin-top: 20%;
+    }
+}
