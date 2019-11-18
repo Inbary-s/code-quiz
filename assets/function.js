@@ -1,7 +1,7 @@
 //--------------
 // GLOBAL VARS
 //--------------
-var totalTime = 80;
+var totalTime = 60;
 var start = document.querySelector("#start");
 var count = 0;
 var totalPoints = 0;
@@ -12,6 +12,14 @@ var answerLine = document.getElementById("answer");
 //--------------
 // FUNCTIONALITIES 
 //--------------
+
+// View Highscore
+var viewScore = document.getElementById("highscore"); //button
+viewScore.addEventListener("click", function(){
+  var score = document.getElementById("viewHighscore").textContent = 'Your Score Is ' + totalPoints; //text to div
+  console.log('Your Score Is ' + totalPoints);  
+});
+
 start.addEventListener("click", function() {
   console.log(totalTime);
   generateQuestions();
@@ -19,12 +27,12 @@ start.addEventListener("click", function() {
   var interval = setInterval(function() {
     totalTime--;
     document.getElementById("timer").innerHTML = "Your time: " + totalTime;
-    console.log("tick .. " + totalTime);
-    if (totalTime === 0 ) {
+    // console.log("tick .. " + totalTime);
+    if (totalTime === -1) {
       clearInterval(interval);
       console.log("Time's out");
       endGame();
-      // alert("Time's out!");
+      alert("Time's out!");
     }
   }, 1000);
   
@@ -47,11 +55,11 @@ generateQuestions = () => {
     btn.setAttribute("data", choice);
     btn.setAttribute("id", `btn${i}`);
     btn.setAttribute("answer", questions[count].answer);
+    document.getElementById("answer").textContent = "";
     
     document.querySelector(`#btn${i}`).addEventListener("click", function(e) {
       console.log(e.target.getAttribute("data"));
       if (e.target.getAttribute("data") === e.target.getAttribute("answer")) {
-        
         answeredRight();
       } else {
         answeredWrong();
@@ -62,29 +70,27 @@ generateQuestions = () => {
 
 answeredRight = () => {
   // alert("YOU GOT IT RIGHT!");
+  var ansRightMsg = document.getElementById("answer").textContent = "You Got it Right!";
   totalPoints += 10 + totalTime;
   console.log(totalPoints);
   count++;
-  // var ansRightMsg = document.getElementById("answer").textContent = "You Got it Right!";
   if (count === questions.length) {
     endGame();
   } else {
-    // setTimeout(function(){ansRightMsg},2000, ansRightMsg = "");
-    // setTimeout(function(){generateQuestions()},2000, ansRightMsg = "");
-    generateQuestions();
-    
+    setTimeout(function(){generateQuestions()},500);
   }
 };
 
 answeredWrong = () => {
-  alert("YOU GOT IT WRONG!");
+  // alert("YOU GOT IT WRONG!");
+  var ansWrongMsg = document.getElementById("answer").textContent = "YOU GOT IT WRONG! the answer is " + questions[count].answer;
   totalPoints -= 5;
   count++;
   totalTime -= 10;
   if (count === questions.length) {
     endGame();
   } else {
-    generateQuestions();
+    setTimeout(function(){generateQuestions()},500);
   }
 };
 
@@ -151,16 +157,17 @@ endGame = () => {
         isInput.parentNode.removeChild(isInput);
         
         //Clear Scores Button
-      var clearBtnText = "Clear it all!";
-      var clearBtn = document.createElement("button");
-      clearBtn.setAttribute("id", "clearBtn");
-      clearBtn.innerHTML = clearBtnText;
-      document.body.appendChild(clearBtn);
-      
-      clearBtn.addEventListener("click", function(){
-        playerTable.innerHTML = ''; 
-        localStorage.clear();
-        key.innerHTML = '';
+        var clearBtnText = "Clear it all!";
+        var clearBtn = document.createElement("button");
+        clearBtn.setAttribute("id", "clearBtn");
+        clearBtn.innerHTML = clearBtnText;
+        document.body.appendChild(clearBtn);
+        
+        clearBtn.addEventListener("click", function(){
+          playerTable.innerHTML = ''; 
+          localStorage.clear();
+          key.innerHTML = '';
+          clearBtn.parentNode.removeChild(clearBtn);
       });
       // Back button
       var backBtnText = "Go Back!"
@@ -173,5 +180,5 @@ endGame = () => {
         location.reload();
       });
 
-    };      
+    };   
 };
